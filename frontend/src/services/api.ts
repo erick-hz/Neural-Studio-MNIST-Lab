@@ -1,5 +1,10 @@
 import axios from 'axios'
-import type { DatasetSample, ModelInfo, Prediction, TrainingMetrics } from '../types'
+import type {
+  DatasetSample,
+  ModelInfo,
+  Prediction,
+  TrainingMetrics,
+} from '../types'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
@@ -17,9 +22,12 @@ export async function fetchModelInfo() {
 }
 
 export async function fetchSamples(limit = 12) {
-  const response = await api.get<{ samples: DatasetSample[]; source: string }>('/dataset/samples', {
-    params: { limit },
-  })
+  const response = await api.get<{ samples: DatasetSample[]; source: string }>(
+    '/dataset/samples',
+    {
+      params: { limit },
+    },
+  )
   return response.data
 }
 
@@ -32,7 +40,12 @@ export async function predictDrawing(blob: Blob) {
 
 export function getApiError(error: unknown) {
   if (axios.isAxiosError(error)) {
-    return error.response?.data?.detail || 'Could not reach the API. Check that the backend is running.'
+    return (
+      error.response?.data?.detail ||
+      'Could not reach the API. Check that the backend is running.'
+    )
   }
-  return error instanceof Error ? error.message : 'An unexpected error occurred.'
+  return error instanceof Error
+    ? error.message
+    : 'An unexpected error occurred.'
 }

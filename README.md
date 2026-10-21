@@ -16,7 +16,7 @@ A local full-stack lab for handwritten digit recognition. The frontend is a Reac
 
 - Windows 10/11, 64-bit
 - Python 3.12
-- Node.js 20 or newer with npm
+- Node.js 20.19+, 22.13+, or 24+ with npm (required by ESLint 10)
 - Internet access on the first training run to download MNIST
 
 TensorFlow runs on CPU by default. Training time depends on the machine. The trained model is generated locally and is intentionally not committed to source control.
@@ -78,6 +78,8 @@ npm run dev
 
 Open `http://localhost:5173`.
 
+Installing frontend dependencies also configures the Husky pre-commit hook. It runs Prettier and ESLint on staged frontend files. To run the checks manually, use `npm run format:check` and `npm run lint` from `frontend`.
+
 ## Environment variables
 
 The frontend reads `VITE_API_URL` from `frontend/.env`. The backend reads `API_CORS_ORIGINS` as a comma-separated list; its default allows the two local Vite hostnames.
@@ -134,6 +136,8 @@ See [GOOD_PRACTICES.md](GOOD_PRACTICES.md) for project-specific coding, validati
 # Frontend typecheck and production bundle
 Set-Location frontend
 npm run build
+npm run lint
+npm run format:check
 
 # Backend syntax check (from workspace root)
 Set-Location ..

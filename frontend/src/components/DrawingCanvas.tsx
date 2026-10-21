@@ -65,7 +65,13 @@ export function DrawingCanvas({ onPrediction, onError }: DrawingCanvasProps) {
     onError('')
     try {
       const blob = await new Promise<Blob>((resolve, reject) => {
-        canvas.toBlob((value) => value ? resolve(value) : reject(new Error('Could not read the drawing.')), 'image/png')
+        canvas.toBlob(
+          (value) =>
+            value
+              ? resolve(value)
+              : reject(new Error('Could not read the drawing.')),
+          'image/png',
+        )
       })
       onPrediction(await predictDrawing(blob))
     } catch (error) {
@@ -78,7 +84,10 @@ export function DrawingCanvas({ onPrediction, onError }: DrawingCanvasProps) {
   return (
     <section className="panel draw-panel">
       <div className="panel-heading">
-        <div><span className="eyebrow">INPUT</span><h2>Sketch a digit</h2></div>
+        <div>
+          <span className="eyebrow">INPUT</span>
+          <h2>Sketch a digit</h2>
+        </div>
         <span className="canvas-size">28 × 28 model input</span>
       </div>
       <div className="canvas-wrap">
@@ -98,13 +107,36 @@ export function DrawingCanvas({ onPrediction, onError }: DrawingCanvasProps) {
       <div className="brush-control">
         <Brush size={15} aria-hidden="true" />
         <label htmlFor="brush-size">Brush</label>
-        <input id="brush-size" type="range" min="8" max="32" value={brushSize} onChange={(event) => setBrushSize(Number(event.target.value))} />
+        <input
+          id="brush-size"
+          type="range"
+          min="8"
+          max="32"
+          value={brushSize}
+          onChange={(event) => setBrushSize(Number(event.target.value))}
+        />
         <span>{brushSize}px</span>
       </div>
       <div className="canvas-actions">
-        <button className="button button-quiet" type="button" onClick={clearCanvas}><Eraser size={16} />Clear</button>
-        <button className="button button-primary" type="button" onClick={submitPrediction} disabled={loading}>
-          {loading ? <LoaderCircle className="spin" size={16} /> : <Sparkles size={16} />}
+        <button
+          className="button button-quiet"
+          type="button"
+          onClick={clearCanvas}
+        >
+          <Eraser size={16} />
+          Clear
+        </button>
+        <button
+          className="button button-primary"
+          type="button"
+          onClick={submitPrediction}
+          disabled={loading}
+        >
+          {loading ? (
+            <LoaderCircle className="spin" size={16} />
+          ) : (
+            <Sparkles size={16} />
+          )}
           {loading ? 'Analyzing' : 'Run prediction'}
         </button>
       </div>
