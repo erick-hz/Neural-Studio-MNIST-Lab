@@ -20,6 +20,7 @@ These practices are based on the current Neural Studio implementation. Keep this
 - Represent loading, unavailable, error, and successful states explicitly. Do not fabricate metrics or prediction results when the backend has no data.
 - Keep page-level workflows in `frontend/src/pages/` and reusable visualizations or controls in `frontend/src/components/`.
 - Preserve strict TypeScript checks. Resolve unused variables and type errors instead of weakening `strict`, `noUnusedLocals`, or `noUnusedParameters` to make a build pass.
+- Run `npm run lint` and `npm run format:check` from `frontend` before opening a pull request. The Husky pre-commit hook runs Prettier and ESLint on staged frontend files.
 - Keep shared visual tokens and responsive rules in `frontend/src/index.css`. Use semantic elements, accessible names for interactive controls, and responsive layouts when adding UI.
 - Keep local configuration in environment files. Use `frontend/.env.example` as the shareable template; do not commit `frontend/.env` or secrets.
 
@@ -37,7 +38,7 @@ These practices are based on the current Neural Studio implementation. Keep this
   ```
 
 - Smoke-test behavior affected by a change. For backend API changes, check the relevant route and its error states; for frontend changes, verify the corresponding screen with both available and unavailable backend data when practical.
-- At the time this guide was written, the repository has no automated test suite or lint script. Add focused tests when introducing behavior that can regress, and document any new test commands here and in the README.
+- The repository has no automated test suite yet. Add focused tests when introducing behavior that can regress, and document any new test commands here and in the README.
 - Use the checklist in `.github/pull_request_template.md` to record self-review, documentation, warning, test, and downstream-change status accurately.
 
 ## Repository Hygiene
