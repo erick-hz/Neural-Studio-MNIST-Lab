@@ -128,6 +128,8 @@ frontend/
 
 ## Development checks
 
+See [GOOD_PRACTICES.md](GOOD_PRACTICES.md) for project-specific coding, validation, and repository hygiene practices.
+
 ```powershell
 # Frontend typecheck and production bundle
 Set-Location frontend
